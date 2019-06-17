@@ -1,0 +1,28 @@
+version: '3'
+services:   
+  web:
+     image: tutum/apache-php
+     ports:
+       - "80:8080"
+       - "443:8443"
+     links:
+       - database
+     volumes:
+       - ./app:/app
+
+  database:
+     image: mariadb
+     restart: always
+     domainname: b3.fr
+     hostname: mydb
+     ports:
+       - 3306:3306/tcp
+     environment:
+       - MYSQL_ROOT_PASSWORD=1234
+       - MYSQL_USER=user
+       - MYSQL_PASSWORD=1234
+       - MYSQL_DATABASE=wordpress
+     volumes:
+       - data:/var/lib/mysql
+volumes:
+  data:
